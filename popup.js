@@ -3,8 +3,8 @@ document.addEventListener('DOMContentLoaded', function () {
   let isEnabled = false;
 
   // 저장된 상태 불러오기
-  chrome.storage.local.get(['autoSkipEnabled'], function (result) {
-    isEnabled = result.autoSkipEnabled || false;
+  chrome.storage.local.get(['isAutoSkipEnabled'], function (result) {
+    isEnabled = result.isAutoSkipEnabled || false;
     updateButtonState();
   });
 
@@ -23,7 +23,7 @@ document.addEventListener('DOMContentLoaded', function () {
     updateButtonState();
 
     // 상태 저장
-    chrome.storage.local.set({ autoSkipEnabled: isEnabled });
+    chrome.storage.local.set({ isAutoSkipEnabled: isEnabled });
 
     // 현재 활성화된 탭 가져오기
     const [tab] = await chrome.tabs.query({ active: true, currentWindow: true });

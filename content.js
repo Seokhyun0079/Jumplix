@@ -10,6 +10,12 @@ let isObserving = false;
 let skipCheckInterval = null;
 let isAutoSkipEnabled = false;
 
+// Load saved auto-skip state when the script starts
+chrome.storage.local.get(['isAutoSkipEnabled'], function (result) {
+  isAutoSkipEnabled = result.isAutoSkipEnabled || false;
+  console.log(`[Jumplix v${VERSION}] Loaded auto-skip state: ${isAutoSkipEnabled ? 'enabled' : 'disabled'}`);
+});
+
 // Function to find and click the skip intro button
 function skipIntro() {
   if (!isAutoSkipEnabled) return;
