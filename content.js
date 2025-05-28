@@ -1,5 +1,5 @@
 // Script that only works on Netflix watch pages
-const VERSION = '1.0.2';
+const VERSION = '1.1';
 console.log(`Netflix watch page detected. (Jumplix v${VERSION})`);
 
 // Variable to store previous playback time
@@ -98,6 +98,8 @@ function observeVideo() {
     videoElement.addEventListener('seeked', () => {
       isUserSeeking = false;
       console.log(`[Jumplix v${VERSION}] Seeking completed`);
+      skipIntro();
+      skipToNextEpisode();
     });
 
     // Reset observation when video is removed
