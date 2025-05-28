@@ -9,6 +9,7 @@ let currentObserver = null;
 let isObserving = false;
 let skipCheckInterval = null;
 let isAutoSkipEnabled = false;
+let lastUrl = location.href;
 
 // Load saved auto-skip state when the script starts
 chrome.storage.local.get(['isAutoSkipEnabled'], function (result) {
@@ -151,18 +152,39 @@ function initializeObserver() {
   });
 }
 
-// Execute on initial load
-if (document.readyState === 'loading') {
-  document.addEventListener('DOMContentLoaded', initializeObserver);
-} else {
-  initializeObserver();
+// Function to check if we're on a watch page
+function isWatchPage() {
+  return location.pathname.includes('/watch');
 }
 
-// Additional event listener for page change detection
-window.addEventListener('load', () => {
-  console.log(`[Jumplix v${VERSION}] Page load complete`);
-  initializeObserver();
+// Function to handle page changes
+function handlePageChange() {
+  if (isWatchPage()) {
+    console.log(`[Jumplix v${VERSION}] Watch page detected, initializing...`);
+    initializeObserver();
+  }
+}
+
+// URL 변경 감지를 위한 MutationObserver
+const urlObserver = new MutationObserver(() => {
+  if (location.href !== lastUrl) {
+    lastUrl = location.href;
+    handlePageChange();
+  }
 });
+
+// URL 변경 감지 시작
+urlObserver.observe(document, { subtree: true, childList: true });
+
+// Execute on initial load
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', handlePageChange);
+} else {
+  handlePageChange();
+}
+
+// Additional event listener for page load
+window.addEventListener('load', handlePageChange);
 
 // Cleanup when page is unloaded
 window.addEventListener('unload', () => {
@@ -172,6 +194,7 @@ window.addEventListener('unload', () => {
   if (skipCheckInterval) {
     clearInterval(skipCheckInterval);
   }
+  urlObserver.disconnect();
   isObserving = false;
 });
 

@@ -2,7 +2,7 @@
   "manifest_version": 3,
   "name": "Jumplix",
   "version": "1.0",
-  "description": "새로운 크롬 확장 프로그램",
+  "description": "skip intro and start next episode",
   "permissions": ["activeTab", "storage", "tabs"],
   "host_permissions": ["*://*.netflix.com/*"],
   "action": {
@@ -18,7 +18,7 @@
   },
   "content_scripts": [
     {
-      "matches": ["*://*.netflix.com/watch/*"],
+      "matches": ["*://*.netflix.com/*"],
       "js": ["content.js"]
     }
   ],
