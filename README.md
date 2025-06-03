@@ -1,4 +1,5 @@
-chrome webstore : https://chromewebstore.google.com/detail/jumplix/gjobaabjjmlkijimmcdppdadfjiiledn
+# Chrome Web Store
+https://chromewebstore.google.com/detail/jumplix/gjobaabjjmlkijimmcdppdadfjiiledn
 
 # Jumplix - Netflix 자동화 확장 프로그램
 
