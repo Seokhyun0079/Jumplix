@@ -1,3 +1,5 @@
+chrome webstore : https://chromewebstore.google.com/detail/jumplix/gjobaabjjmlkijimmcdppdadfjiiledn
+
 # Jumplix - Netflix 자동화 확장 프로그램
 
 Netflix 시청 경험을 향상시키는 크롬 확장 프로그램입니다.
